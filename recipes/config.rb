@@ -54,8 +54,8 @@ p node['cassandra']['version'][0..2]
 p '!!!'
 
 # delete properties on the basis of C* version
-# C* < 2.0
-if node['cassandra']['version'][0..2] < '2.0'
+# C* <= 2.0
+if node['cassandra']['version'][0..2] <= '2.0'
   ruby_block 'smash >= 2.1-attributes' do
     block do
       node.rm('cassandra', 'config', 'broadcast_rpc_address')
