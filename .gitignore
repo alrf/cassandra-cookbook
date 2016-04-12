@@ -9,6 +9,7 @@ tmp/
 \#*#
 .*.sw[a-z]
 *.un~
+.idea/
 pkg/
 
 # Berkshelf
