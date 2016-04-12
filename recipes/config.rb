@@ -49,10 +49,6 @@ directory '/usr/share/java' do
   mode '00755'
 end
 
-p '!!!'
-p node['cassandra']['version'][0..2]
-p '!!!'
-
 # delete properties on the basis of C* version
 # C* <= 2.0
 if node['cassandra']['version'][0..2] <= '2.0'
