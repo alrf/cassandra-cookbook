@@ -79,7 +79,7 @@ bash 'extract_cassandra_source' do
     chmod #{node['cassandra']['dir_mode']} #{node['cassandra']['source_dir']}
   EOS
 
-  not_if  { ::File.exist?(node['cassandra']['source_dir']) }
+  #not_if  { ::File.exist?(node['cassandra']['source_dir']) }
   creates ::File.join(node['cassandra']['source_dir'], 'bin', 'cassandra')
   action :run
 end
