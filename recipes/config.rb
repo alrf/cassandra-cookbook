@@ -99,6 +99,8 @@ end
 #   notifies :restart, 'service[cassandra]', :delayed if node['cassandra']['notify_restart']
 # end
 
+p '!!!'
+p ::File.join(node['cassandra']['conf_dir'], 'cassandra.yaml')
 ruby_block "create configs " + ::File.join(node['cassandra']['conf_dir'], 'cassandra.yaml') do
   block do
     r = Chef::Resource::Template.new(::File.join(node['cassandra']['conf_dir'], 'cassandra.yaml'), run_context)
@@ -112,6 +114,7 @@ ruby_block "create configs " + ::File.join(node['cassandra']['conf_dir'], 'cassa
     r.run_action :create
   end
 end
+p '!!!'
 
 template ::File.join(node['cassandra']['conf_dir'], 'cassandra-env.sh') do
   cookbook node['cassandra']['templates_cookbook']
