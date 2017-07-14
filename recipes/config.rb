@@ -90,31 +90,14 @@ if node['cassandra']['version'][0..2] >= '2.1'
 end
 
 # configuration files
-# template ::File.join(node['cassandra']['conf_dir'], 'cassandra.yaml') do
-#   cookbook node['cassandra']['templates_cookbook']
-#   source 'cassandra.yaml.erb'
-#   owner node['cassandra']['user']
-#   group node['cassandra']['group']
-#   mode '0644'
-#   notifies :restart, 'service[cassandra]', :delayed if node['cassandra']['notify_restart']
-# end
-
-p '!!!'
-p ::File.join(node['cassandra']['conf_dir'], 'cassandra.yaml')
-ruby_block "create configs " + ::File.join(node['cassandra']['conf_dir'], 'cassandra.yaml') do
-  block do
-    r = Chef::Resource::Template.new(::File.join(node['cassandra']['conf_dir'], 'cassandra.yaml'), run_context)
-    r.path       ::File.join(node['cassandra']['conf_dir'], 'cassandra.yaml')
-    r.source     'cassandra.yaml.erb'
-    r.cookbook   node['cassandra']['templates_cookbook']
-    r.owner      node['cassandra']['user']
-    r.group      node['cassandra']['group']
-    r.mode       00644
-#    r.variables  IP: ext_ip, DOCKER_IP: docker_ip, PROTO: PROTO
-    r.run_action :create
-  end
+template ::File.join(node['cassandra']['conf_dir'], 'cassandra.yaml') do
+  cookbook node['cassandra']['templates_cookbook']
+  source 'cassandra.yaml.erb'
+  owner node['cassandra']['user']
+  group node['cassandra']['group']
+  mode '0644'
+  notifies :restart, 'service[cassandra]', :delayed if node['cassandra']['notify_restart']
 end
-p '!!!'
 
 template ::File.join(node['cassandra']['conf_dir'], 'cassandra-env.sh') do
   cookbook node['cassandra']['templates_cookbook']
